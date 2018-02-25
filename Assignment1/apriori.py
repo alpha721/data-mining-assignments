@@ -80,7 +80,7 @@ def generate_rules():
                 num_total = itemsets[len(left_items) - 1][left_items]
                 conf = float(num) / num_total
                 if conf >= minconf:
-                    line = "[" + ", ".join(list(left_items)) + "] (" + str(itemsets[len(left_items)-1][left_items]) + " => [" + item + "] " +"("+ str(itemsets[len(frozenset([item]))-1][frozenset([item])])+ ")"+ " (Conf: "+str(conf)  + ")"#+ ", Supp: " + str ((itemsetss[itemset])) + ")"
+                    line = "[" + ", ".join(list(left_items)) + "] (" + str(num_total) + " => [" + item + "] " +"("+ str(itemsets[len(frozenset([item]))-1][frozenset([item])])+ ")"+ " - conf ("+str(conf)  + ")"#+ ", Supp: " + str ((itemsetss[itemset])) + ")"
                     rules[line] = conf
     
 def print_result():
@@ -88,7 +88,7 @@ def print_result():
     #f.write(itemsets)
     for item in itemsets:
         for i in range(0,len(item)):
-            f.write("%s " % list(list(item.keys())[i]))
+            f.write("%s ," % list(list(item.keys())[i]))
             f.write("(%s)\n" % list(item.values())[i])
     
     f.close()
