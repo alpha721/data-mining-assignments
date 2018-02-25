@@ -32,7 +32,7 @@ def initial_itemset():
     num_of_transactions  = len(transactions)
     first_itemset = itemsets[0]
     for item in first_itemset.copy().keys():
-        support_value = float(first_itemset[item])/num_of_transactions
+        support_value = first_itemset[item]#/num_of_transactions
         if support_value < minsupp:
             del first_itemset[item]
         else:
@@ -62,7 +62,7 @@ def generate_frequent_itemsets():
                     if itemset <= t:
                         candidate_itemsets[itemset] += 1
             for itemset in list(candidate_itemsets.keys()):
-                support_value = float(candidate_itemsets[itemset])/num_of_transactions
+                support_value = candidate_itemsets[itemset]#/num_of_transactions
                 if support_value < minsupp:
                     del candidate_itemsets[itemset]
                 else:
@@ -80,7 +80,7 @@ def generate_rules():
                 num_total = itemsets[len(left_items) - 1][left_items]
                 conf = float(num) / num_total
                 if conf >= minconf:
-                    line = "[" + ", ".join(list(left_items)) + "] => [" + item + "] (Conf: "+str(conf * 100) + "%, Supp: " + str ((itemsetss[itemset] * 100)) + "%)"
+                    line = "[" + ", ".join(list(left_items)) + "] (" + str(itemsets[len(left_items)-1][left_items]) + " => [" + item + "] " +"("+ str(itemsets[len(frozenset([item]))-1][frozenset([item])])+ ")"+ " (Conf: "+str(conf)  + ")"#+ ", Supp: " + str ((itemsetss[itemset])) + ")"
                     rules[line] = conf
     
 def print_result():
@@ -89,7 +89,7 @@ def print_result():
     for item in itemsets:
         for i in range(0,len(item)):
             f.write("%s " % list(list(item.keys())[i]))
-            f.write("%s\n" % list(item.values())[i])
+            f.write("(%s)\n" % list(item.values())[i])
     
     f.close()
     
@@ -114,7 +114,7 @@ def main():
 #    minsupp = sys.argv[2]
 #    minconf = sys.argv[3]
     dataset_file = '/home/neetu/pn/groceries.csv'
-    minsupp = 0.01
+    minsupp = 30
     minconf = 0.01
  
     itemsets, transactions = load_transactions(dataset_file)
